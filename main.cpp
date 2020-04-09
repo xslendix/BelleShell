@@ -1,5 +1,7 @@
 #include <iostream>
+#include <iomanip>
 #include <cstdio>
+#include <ctime>
 
 #include <windows.h>
 #include <winuser.h>
@@ -9,10 +11,12 @@ int main()
 {
     using namespace std;
     freopen( "log.txt", "w", stdout );
+    std::time_t t = std::time(nullptr);
+    std::tm tm = *std::localtime(&t);
 
-    std::cout << "BelleShell has started!" << std::endl;
+    std::cout << '[' << std::put_time(&tm, "%H:%M:%S") << "] BelleShell has started!" << std::endl;
 
-    std::cout << "Getting all processes and removing window decoration..." << std::endl;
+    std::cout << '[' << std::put_time(&tm, "%H:%M:%S") << "] Getting all processes and removing window decoration..." << std::endl;
 
     WTS_PROCESS_INFO* pWPIs = NULL;
     DWORD dwProcCount = 0;
@@ -26,9 +30,13 @@ int main()
             //pWPIs[i].SessionId = session ID, if you need to limit it to the logged in user processes
             //pWPIs[i].pUserSid = user SID that started the process
 
-            if (GetGUIThreadInfo(pWPIs[i].ProcessId, 0)) {
+            if (GetGUIThreadInfo(pWPIs[i].ProcessId, 0))
+            {
                 // Process has a window. Print process name.
-                std::cout << "Process found! ID: " << pWPIs[i].ProcessId << " Name: " << pWPIs[i].pProcessName << std::endl;
+                std::cout << "GUI found! ID: " << pWPIs[i].ProcessId << " Name: " << pWPIs[i].pProcessName << std::endl;
+            } else
+            {
+                std::cout << "Process found! ID: " << pWPIs[i].ProcessId << std::endl;
             }
         }
     }
