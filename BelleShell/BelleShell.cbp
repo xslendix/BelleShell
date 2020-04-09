@@ -32,7 +32,19 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="TODO.txt" />
+		<Unit filename="admintools.cpp" />
+		<Unit filename="admintools.hpp" />
+		<Unit filename="config/config.ini" />
+		<Unit filename="config/keys.ini" />
 		<Unit filename="main.cpp" />
+		<Unit filename="main.hpp" />
+		<Unit filename="simpleini/ConvertUTF.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="simpleini/ConvertUTF.h" />
+		<Unit filename="simpleini/SimpleIni.h" />
+		<Unit filename="simpleini/snippets.cpp" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

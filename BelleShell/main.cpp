@@ -40,7 +40,7 @@ void GetAllWindowsFromProcessID(DWORD dwProcessID, std::vector <HWND> &vhWnds)
     while (hCurWnd != NULL);
 }
 
-std::vector <DWORD> pids;
+//std::vector <DWORD> pids;
 
 void PrintProcessNameAndID( DWORD processID )
 {
@@ -69,7 +69,7 @@ void PrintProcessNameAndID( DWORD processID )
 
     // Print the process name and identifier.
     if (_tcscmp(szProcessName, unknownString) == 1) {
-        pids.push_back(processID);
+//        pids.push_back(processID);
         std::cout << '[' << std::put_time(&tmm, "%H:%M:%S") << "] - " << szProcessName << "  (PID: " << processID << ")" << std::endl;
     }
 
@@ -79,7 +79,7 @@ void PrintProcessNameAndID( DWORD processID )
 
 int Main()
 {
-    for (int i=0; i < 512; ++i) pids[i] = -1;
+//    for (int i=0; i < 512; ++i) pids[i] = -1;
 
     std::cout << '[' << std::put_time(&tmm, "%H:%M:%S") << "] :: BelleShell has started!" << std::endl;
     std::cout << '[' << std::put_time(&tmm, "%H:%M:%S") << "] :: Getting all processes and removing window decoration..." << std::endl;
@@ -104,17 +104,22 @@ int Main()
             PrintProcessNameAndID( aProcesses[i] );
         }
     }
+    /*
     std::vector <HWND> hwnds;
     for (DWORD pid : pids)
     {
         std::vector <HWND> temp;
-        GetAllWindowsFromProcessID(pid, &temp);
+        GetAllWindowsFromProcessID(pid, temp);
         hwnds.insert(hwnds.end(), temp.begin(), temp.end());
-    }
+    }*/
 
-    while (running)
-    {
-
+    try {
+        while (running)
+        {
+            Sleep(50);
+        }
+    } catch (const std::exception& e) {
+        std::cout << '[' << std::put_time(&tmm, "%H:%M:%S") << "] :: BelleShell caught an exception during runtime: " << e.what() << std::endl;
     }
 
     return 0;
