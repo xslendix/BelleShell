@@ -1,7 +1,26 @@
 # depslib dependency file v1.0
-1586391932 source:c:\users\killme\desktop\belleshell\main.cpp
+1586436527 source:c:\users\killme\desktop\belleshell\main.cpp
 	<iostream>
+	<iomanip>
+	<cstdio>
+	<ctime>
 	<windows.h>
 	<winuser.h>
 	<wtsapi32.h>
+	<tchar.h>
+	<psapi.h>
+
+1586439200 source:c:\users\killme\desktop\belleshell\admintools.cpp
+	"admintools.hpp"
+	"main.hpp"
+	<windows.h>
+	<winuser.h>
+	<wtsapi32.h>
+	<tchar.h>
+	<psapi.h>
+
+1586437762 c:\users\killme\desktop\belleshell\admintools.hpp
+	<windows.h>
+
+1586437319 c:\users\killme\desktop\belleshell\main.hpp
 
