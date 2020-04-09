@@ -24,3 +24,30 @@
 
 1586437319 c:\users\killme\desktop\belleshell\main.hpp
 
+1586446840 source:c:\users\killme\desktop\belleshell\simpleini\convertutf.c
+	"ConvertUTF.h"
+	<stdio.h>
+
+1586446840 c:\users\killme\desktop\belleshell\simpleini\convertutf.h
+
+1586446839 source:c:\users\killme\desktop\belleshell\simpleini\snippets.cpp
+	<unistd.h>
+	<fstream>
+	"SimpleIni.h"
+
+1586446839 c:\users\killme\desktop\belleshell\simpleini\simpleini.h
+	<cstring>
+	<string>
+	<map>
+	<list>
+	<algorithm>
+	<stdio.h>
+	<iostream>
+	<cassert>
+	<unicode/ustring.h>
+	<wchar.h>
+	"ConvertUTF.h"
+	<unicode/ucnv.h>
+	<windows.h>
+	<mbstring.h>
+

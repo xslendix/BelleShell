@@ -1,7 +1,10 @@
 #include "main.hpp"
 #include "admintools.hpp"
 
+#include "simpleini/SimpleIni.h"
+
 #include <iostream>
+#include <vector>
 #include <iomanip>
 #include <cstdio>
 #include <ctime>
@@ -17,8 +20,31 @@
 std::time_t tt;
 std::tm tmm;
 
+bool running = true;
+
+// https://stackoverflow.com/a/48207646
+void GetAllWindowsFromProcessID(DWORD dwProcessID, std::vector <HWND> &vhWnds)
+{
+    // find all hWnds (vhWnds) associated with a process id (dwProcessID)
+    HWND hCurWnd = NULL;
+    do
+    {
+        hCurWnd = FindWindowEx(NULL, hCurWnd, NULL, NULL);
+        DWORD dwProcessID = 0;
+        GetWindowThreadProcessId(hCurWnd, &dwProcessID);
+        if (dwProcessID == dwProcessID)
+        {
+            vhWnds.push_back(hCurWnd);
+        }
+    }
+    while (hCurWnd != NULL);
+}
+
+std::vector <DWORD> pids;
+
 void PrintProcessNameAndID( DWORD processID )
 {
+
     TCHAR szProcessName[MAX_PATH] = TEXT("<unknown>");
     TCHAR unknownString[] = TEXT("<unknown>");
 
@@ -43,6 +69,7 @@ void PrintProcessNameAndID( DWORD processID )
 
     // Print the process name and identifier.
     if (_tcscmp(szProcessName, unknownString) == 1) {
+        pids.push_back(processID);
         std::cout << '[' << std::put_time(&tmm, "%H:%M:%S") << "] - " << szProcessName << "  (PID: " << processID << ")" << std::endl;
     }
 
@@ -52,12 +79,12 @@ void PrintProcessNameAndID( DWORD processID )
 
 int Main()
 {
-    std::cout << '[' << std::put_time(&tmm, "%H:%M:%S") << "] :: BelleShell has started!" << std::endl;
+    for (int i=0; i < 512; ++i) pids[i] = -1;
 
+    std::cout << '[' << std::put_time(&tmm, "%H:%M:%S") << "] :: BelleShell has started!" << std::endl;
     std::cout << '[' << std::put_time(&tmm, "%H:%M:%S") << "] :: Getting all processes and removing window decoration..." << std::endl;
 
     // Get the list of process identifiers.
-
     DWORD aProcesses[1024], cbNeeded, cProcesses;
     unsigned int i;
 
@@ -77,6 +104,18 @@ int Main()
             PrintProcessNameAndID( aProcesses[i] );
         }
     }
+    std::vector <HWND> hwnds;
+    for (DWORD pid : pids)
+    {
+        std::vector <HWND> temp;
+        GetAllWindowsFromProcessID(pid, &temp);
+        hwnds.insert(hwnds.end(), temp.begin(), temp.end());
+    }
+
+    while (running)
+    {
+
+    }
 
     return 0;
 }
@@ -95,18 +134,8 @@ int main()
     if(IsRunAsAdministrator())
     {
         ret = Main();
-    } else
-    {
-        /*if(MessageBox(0,"Need To Elevate","Critical Disk Error",MB_SYSTEMMODAL|MB_ICONERROR|MB_YESNO) == IDYES)
-        {
-            ElevateNow();
-        } else
-        {*/
-            MessageBox(0,"This program requires administrator to run!","System Critical Error",MB_SYSTEMMODAL|MB_OK|MB_ICONERROR);
-        /*    ElevateNow();
-        }*/
-        //return ElevateNow();
     }
+
     t2=clock();
     float diff ((float)t2-(float)t1);
     std::cout << '[' << std::put_time(&tmm, "%H:%M:%S") << "] :: BelleShell ran for " << diff << " miliseconds." << std::endl;
