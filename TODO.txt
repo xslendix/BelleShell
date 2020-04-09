@@ -1,0 +1,16 @@
+
+For refrence on what needs to be done!
+When a task is completed, replace the '*' with a '-'!
+
+ * Remove decorations from all windows (including new ones too)
+ * Create tiling system
+   * Automatic tiling
+   * Keyboard shortcuts
+   * Window dragging
+ * Create multiple desktops system
+ * Create autostart batch and poweshell system (autostart.bat and autostart.ps1)
+ * Create config file parser (config.ini)
+ * Create module system
+ * Create modules
+   * Tiling modes
+   * Statusbar
