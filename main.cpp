@@ -1,10 +1,15 @@
 #include <iostream>
+#include <cstdio>
+
 #include <windows.h>
 #include <winuser.h>
 #include <wtsapi32.h>
 
 int main()
 {
+    using namespace std;
+    freopen( "log.txt", "w", stdout );
+
     std::cout << "BelleShell has started!" << std::endl;
 
     std::cout << "Getting all processes and removing window decoration..." << std::endl;
@@ -23,7 +28,7 @@ int main()
 
             if (GetGUIThreadInfo(pWPIs[i].ProcessId, 0)) {
                 // Process has a window. Print process name.
-                std::cout << "Process found! ID: " << pWPIs[i].ProcessId << " Name: " << pWPIs[i].pProcessName;
+                std::cout << "Process found! ID: " << pWPIs[i].ProcessId << " Name: " << pWPIs[i].pProcessName << std::endl;
             }
         }
     }
